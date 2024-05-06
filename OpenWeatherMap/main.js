@@ -7,19 +7,22 @@ function getPosition() {
     }
 }
 
+
 //Fonction pour afficher la météo en fonction des coordonnées
 function showWeather(position) {
     const latitude = position.coords.latitude
     const longitude = position.coords.longitude
-    const apiKey = '' //Remplace avec ta clé API OpenWeatherMap
+    const apiKey = 'b8fedefcb8801b79761d7313152fe11a' //Remplace avec ta clé API OpenWeatherMap
 
     // Construction de l'URL de requête avec les coordonnées
-    const weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&lang=fr`
+    const weatherApiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&lang=fr`
+    console.log(weatherApiUrl)
 
     fetch(weatherApiUrl)
         .then(response => response.json())
         .then(data => {
             //Récupération des informations météorologiques
+            console.log(data)
 
             const temperatureKelvin = data.main.temp
             const temperatureCelsius = Math.round(temperatureKelvin - 273.15)
