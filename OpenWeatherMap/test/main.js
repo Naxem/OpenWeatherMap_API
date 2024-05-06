@@ -1,0 +1,44 @@
+//Fonction pour obtenir la position du client
+function getPosition() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showWeather)
+    } else {
+        console.error("La géolocalisation n'est pas supportée par ce navigateur.")
+    }
+}
+
+
+//Fonction pour afficher la météo en fonction des coordonnées
+function showWeather(position) {
+    const latitude = position.coords.latitude
+    const longitude = position.coords.longitude
+    const apiKey = 'b8fedefcb8801b79761d7313152fe11a' //Remplace avec ta clé API OpenWeatherMap
+
+    // Construction de l'URL de requête avec les coordonnées
+    const weatherApiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&lang=fr`
+    console.log(weatherApiUrl)
+
+    fetch(weatherApiUrl)
+        .then(response => response.json())
+        .then(data => {
+            //Récupération des informations météorologiques
+            console.log(data)
+
+            const temperatureKelvin = data.main.temp
+            const temperatureCelsius = Math.round(temperatureKelvin - 273.15)
+
+            document.getElementById('temperature').innerText = `Température: ${temperatureCelsius.toFixed(2)} °C`
+
+            const location = data.name
+            const temperature = temperatureCelsius
+            const description = data.weather[0].description
+
+            // Affichage sur le site
+            document.getElementById('location').innerText = `Lieu: ${location}`
+            document.getElementById('temperature').innerText = `Température: ${temperature} °C`
+            document.getElementById('description').innerText = `Description: ${description}`
+        })
+        .catch(error => console.error('Erreur lors de la requête:', error))
+}
+
+getPosition()
