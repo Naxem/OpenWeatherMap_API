@@ -6,7 +6,7 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE");
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
 if ((isset($_GET["latitude"])) && (isset($_GET["longitude"]))) {
-    $_SESSION["cleApi"] = "Key-API";
+    $_SESSION["cleApi"] = "b8fedefcb8801b79761d7313152fe11a";
     geolocation();
 }
 
