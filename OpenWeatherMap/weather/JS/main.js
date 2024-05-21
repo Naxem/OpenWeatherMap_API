@@ -1,6 +1,6 @@
 // Fonction pour obtenir la position du client
 function getPosition() {
-    if (navigator.geolocation) {
+    if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             const latitude = position.coords.latitude
             const longitude = position.coords.longitude
@@ -27,6 +27,9 @@ function getPosition() {
         }, function (error) {
             console.error("Erreur lors de l'obtention de la position:", error.message)
         })
+    }
+    else {
+        alert("Allow geolocation")
     }
 }
 
