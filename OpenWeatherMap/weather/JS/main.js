@@ -72,6 +72,7 @@ function showWeather() {
                 document.getElementById('description').innerText = `Description: ${description}`
                 document.getElementById("temp-min").innerText = `Température min: ${temperatureKelvinMin} °C`
                 document.getElementById("temp-max").innerText = `Température max: ${temperatureKelvinMax} °C`
+                document.getElementById("img-meteo").innerText = getIconWithWeather("je sais pas", description, is_day(currentHour))
 
                 document.getElementById("pression").innerText = `Pression: ${pressure} mb`
                 document.getElementById("humidite").innerText = `humidité: ${humidite} %`

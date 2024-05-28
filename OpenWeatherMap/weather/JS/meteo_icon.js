@@ -67,5 +67,16 @@ function getIconWithWeather(weather, weatherDescription, night) {
                     return "../ressources/nuage.png"
                 }
         }
+    } else {
+        console.log("erreur: meteo")
+        return "../ressources/error.png"
+    }
+}
+
+function is_day(hour) {
+    if(hour > 12) {
+        return false
+    } else {
+        return true
     }
 }
