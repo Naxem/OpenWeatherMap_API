@@ -45,7 +45,7 @@ function getIconWithWeather(weather, weatherDescription, night) {
     } else if(weather == "Sand") {
         return "../ressources/sand.png"
     } else if(weather == "Clear") {
-        if(night) {
+        if(is_day(night)) {
             return "../ressources/n_clear.png"
         } else {
             return "../ressources/clear.png"
@@ -55,13 +55,13 @@ function getIconWithWeather(weather, weatherDescription, night) {
             case "few clouds: 11-25%":
             case "broken clouds: 51-84%":
             case "overcast clouds: 85-100%":
-                if(night) {
+                if(is_day(night)) {
                     return "../ressources/n_eclaircie.png"
                 } else {
                     return "../ressources/eclaircie.png"
                 }
             case "scattered clouds: 25-50%":
-                if(night) {
+                if(is_day(night)) {
                     return "../ressources/n_nuage.png"
                 } else {
                     return "../ressources/nuage.png"
@@ -74,7 +74,8 @@ function getIconWithWeather(weather, weatherDescription, night) {
 }
 
 function is_day(hour) {
-    if(hour > 12) {
+    const heureNumerique = parseInt(hour.replace(':', ''))
+    if(heureNumerique > 1800) {
         return false
     } else {
         return true

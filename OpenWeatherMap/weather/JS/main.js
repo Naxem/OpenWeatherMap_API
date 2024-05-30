@@ -58,6 +58,7 @@ function showWeather() {
                 const temperatureKelvinMin = kalvinToCelsius(data.main.temp_min)
                 const location = data.name
                 const temperature = temperatureCelsius
+                const weather = data.weather[0].main
                 const description = data.weather[0].description
                 const locationInDocument = document.querySelectorAll('.location')
                 const humidite = data.main.humidity
@@ -72,7 +73,8 @@ function showWeather() {
                 document.getElementById('description').innerText = `Description: ${description}`
                 document.getElementById("temp-min").innerText = `Température min: ${temperatureKelvinMin} °C`
                 document.getElementById("temp-max").innerText = `Température max: ${temperatureKelvinMax} °C`
-                document.getElementById("img-meteo").innerText = getIconWithWeather("je sais pas", description, is_day(currentHour))
+                document.getElementById("img-meteo").src = getIconWithWeather(weather, description, is_day(currentHour))
+                console.log(getIconWithWeather(weather, description, is_day(currentHour)))
 
                 document.getElementById("pression").innerText = `Pression: ${pressure} mb`
                 document.getElementById("humidite").innerText = `humidité: ${humidite} %`
