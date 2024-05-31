@@ -1,15 +1,15 @@
-// Fonction pour obtenir la position du client
+//Fonction pour obtenir la position du client
 function getPosition() {
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             const latitude = position.coords.latitude
             const longitude = position.coords.longitude
 
-            // Utilise les valeurs de latitude et longitude comme nécessaire
+            //Utilise les valeurs de latitude et longitude comme nécessaire
             console.log("Latitude:", latitude)
             console.log("Longitude:", longitude)
 
-            // Envoie les données au serveur en utilisant AJAX
+            //Envoie les données au serveur en utilisant AJAX
             $.ajax({
                 url: 'JS/proxy.php',
                 type: 'GET',
@@ -33,29 +33,24 @@ function getPosition() {
     }
 }
 
-// function Kalvine to celsius
-function kalvinToCelsius(temperature) {
-    return Math.round(temperature - 273.15)
-}
-
-// Fonction pour afficher la météo en fonction des coordonnées
+//Fonction pour afficher la météo en fonction des coordonnées
 function showWeather() {
-    // Crée un nouvel objet Date
+    //Crée un nouvel objet Date
     const currentDate = new Date()
-    // Récupère l'heure actuelle
+    //Récupère l'heure actuelle
     const currentHour = currentDate.getHours()
 
     function getApi() {
         $.ajax({
-            url: 'JS/proxy.php', // L'URL de la requête AJAX
+            url: 'JS/proxy.php', //URL de la requête AJAX
             type: 'GET',
             data: { action: '1' },
             success: function (response) {
-                // Affichage des informations météorologiques actuelles
+                //Affichage des informations météorologiques actuelles
                 const data = JSON.parse(response)
-                const temperatureCelsius = kalvinToCelsius(data.main.temp)
-                const temperatureKelvinMax = kalvinToCelsius(data.main.temp_max)
-                const temperatureKelvinMin = kalvinToCelsius(data.main.temp_min)
+                const temperatureCelsius = data.main.temp
+                const temperatureKelvinMax = data.main.temp_max
+                const temperatureKelvinMin = data.main.temp_min
                 const location = data.name
                 const temperature = temperatureCelsius
                 const weather = data.weather[0].main
@@ -66,19 +61,15 @@ function showWeather() {
                 const wind = data.wind.speed
                 const windDeg = data.wind.deg
 
-                locationInDocument.forEach(element => {
-                    element.innerText = `Lieu: ${location}`
-                })
-                document.getElementById('temperature').innerText = `Température: ${temperature} °C`
+                locationInDocument.forEach(element => {element.innerText = `Lieu: ${location}`})
+                document.getElementById('temperature').innerText = `${temperature} °C`
                 document.getElementById('description').innerText = `Description: ${description}`
-                document.getElementById("temp-min").innerText = `Température min: ${temperatureKelvinMin} °C`
-                document.getElementById("temp-max").innerText = `Température max: ${temperatureKelvinMax} °C`
+                document.getElementById("temp-min").innerText = `${temperatureKelvinMin} °C`
+                document.getElementById("temp-max").innerText = `${temperatureKelvinMax} °C`
                 document.getElementById("img-meteo").src = getIconWithWeather(weather, description, is_day(currentHour))
-                console.log(getIconWithWeather(weather, description, is_day(currentHour)))
-
-                document.getElementById("pression").innerText = `Pression: ${pressure} mb`
-                document.getElementById("humidite").innerText = `humidité: ${humidite} %`
-                document.getElementById("wind").innerText = `Vitesse du vent: ${wind} km/h`
+                document.getElementById("pression").innerText = `${pressure} mb`
+                document.getElementById("humidite").innerText = `${humidite} %`
+                document.getElementById("wind").innerText = `${wind} km/h`
                 document.getElementById("wind-deg").style.transform = `rotate(${windDeg}deg)`
 
                 //Changer la classe quand il y a une alert pour agrandir le header est changer la couleur
@@ -104,7 +95,7 @@ function showWeather() {
             type: 'GET',
             data: { action: '2' },
             success: function (response) {
-                // Affichage des prévisions sur 7 jours
+                //Affichage des prévisions sur 7 jours
                 const data = JSON.parse(response)
                 const dailyForecast = data.daily
                 const forecastContainer = document.getElementById('forecastContainer')
@@ -136,7 +127,7 @@ function showWeather() {
             type: 'GET',
             data: { action: '3' },
             success: function (response) {
-                // Affichage des prévisions sur 24h
+                //Affichage des prévisions sur 24h
                 const data = JSON.parse(response)
                 const todayHourlyForecast = data.list.filter(item => {
                     const forecastDate = new Date(item.dt * 1000)
