@@ -5,7 +5,7 @@ function getIconWithWeather(weather, weatherDescription, night) {
         return "../ressources/thunderstorm.png"
     } else if(weather == "Rain") {
         switch(weatherDescription) {
-            case "light rain":
+            case "légère pluie":
             case "moderate rain":
                 return "../ressources/pluie2.png"
             case "very heavy rain":
@@ -76,9 +76,9 @@ function getIconWithWeather(weather, weatherDescription, night) {
 
 function is_day(hour) {
     const heureNumerique = parseInt(hour)
-    if(heureNumerique > 18) {
-        return false
-    } else {
+    if(heureNumerique >= 18) {
         return true
+    } else {
+        return false
     }
 }

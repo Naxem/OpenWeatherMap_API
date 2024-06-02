@@ -13,7 +13,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /*overflow: hidden;*/
+    /*overflow: scroll;*/
 }
 
 a {
@@ -25,7 +25,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 100dvw;
-    height: 100dvh;
+    height: 100%;
     background: linear-gradient(45deg, #0033B6, #2859D8, #3E75C7);
 }
