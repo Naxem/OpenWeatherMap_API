@@ -9,6 +9,7 @@
     .prevision-heure {width: 80%;  }
     .div-presivion {flex-direction: column;}
     #tomorrowHourlyContainer {padding-top: 30px;}
+    #weather-info h1 {font-size: 22px;}
 
     /*section-right*/
     .section-right {width: 80%;}
