@@ -27,16 +27,16 @@ function requete($nbAction, $cleApi, $latitude, $longitude)
     // Vérifier la méthode de requête
     if ($nbAction == '1') {
         // Construire l'URL de l'API OpenWeatherMap avec la clé
-        $urlApiOpenWeatherMap = "https://api.openweathermap.org/data/2.5/weather?lat={$latitude}&lon={$longitude}&appid={$cleApi}&lang=fr";
+        $urlApiOpenWeatherMap = "https://api.openweathermap.org/data/2.5/weather?lat={$latitude}&lon={$longitude}&appid={$cleApi}&lang=fr&units=metric";
         // Faire la requête vers l'API OpenWeatherMap
         $reponseApiOpenWeatherMap = file_get_contents($urlApiOpenWeatherMap);
     } elseif ($nbAction == '2') {
         // Construction de l'URL de requête pour la prévision sur 7 jours
-        $forecastApiUrl = "https://api.openweathermap.org/data/3.0/onecall?lat={$latitude}&lon={$longitude}&exclude=current,minutely,hourly&appid={$cleApi}&lang=fr";
+        $forecastApiUrl = "https://api.openweathermap.org/data/3.0/onecall?lat={$latitude}&lon={$longitude}&exclude=current,minutely,hourly&appid={$cleApi}&lang=fr&units=metric&units=metric";
         $reponseApiOpenWeatherMap = file_get_contents($forecastApiUrl);
     } elseif ($nbAction == '3') {
         // Affichage de la météo par heure pour aujourd'hui et demain
-        $dailyWeatherApiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat={$latitude}&lon={$longitude}&appid={$cleApi}&lang=fr";
+        $dailyWeatherApiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat={$latitude}&lon={$longitude}&appid={$cleApi}&lang=fr&units=metric";
         $reponseApiOpenWeatherMap = file_get_contents($dailyWeatherApiUrl);
     } else {
         http_response_code(405);
