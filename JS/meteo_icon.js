@@ -53,7 +53,7 @@ function getIconWithWeather(weather, weatherDescription, night) {
     } else if(weather == "Clouds") {
         switch(weatherDescription) {
             case "nuageux":
-            case "broken clouds: 51-84%":
+            case "peu nuageux":
             case "overcast clouds: 85-100%":
                 if(is_day(night)) {
                     return "../ressources/n_eclaircie.png"
