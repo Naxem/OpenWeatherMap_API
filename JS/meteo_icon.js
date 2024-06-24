@@ -54,7 +54,7 @@ function getIconWithWeather(weather, weatherDescription, night) {
         switch(weatherDescription) {
             case "nuageux":
             case "peu nuageux":
-            case "overcast clouds: 85-100%":
+            case "partiellement nuageux":
                 if(is_day(night)) {
                     return "../ressources/n_eclaircie.png"
                 } else {
