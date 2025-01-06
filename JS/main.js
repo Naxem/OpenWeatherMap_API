@@ -1,6 +1,43 @@
 //Fonction pour obtenir la position du client
-function getPosition() {
-    if(navigator.geolocation) {
+function getPosition(location) {
+    if (location || location !== "Erreur de géolocalisation") {
+        // Utilise une API de géocodage pour convertir la ville en coordonnées
+        const geocodeUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
+
+        fetch(geocodeUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    const latitude = parseFloat(data[0].lat);
+                    const longitude = parseFloat(data[0].lon);
+
+                    console.log("Coordonnées récupérées depuis la ville:", location);
+                    console.log("Latitude:", latitude);
+                    console.log("Longitude:", longitude);
+
+                    // Envoie les données au serveur
+                    $.ajax({
+                        url: 'JS/proxy.php',
+                        type: 'GET',
+                        data: {
+                            latitude: latitude,
+                            longitude: longitude,
+                        },
+                        success: function () {
+                            showWeather();
+                        },
+                        error: function (error) {
+                            console.error("Erreur lors de l'envoi des données au serveur:", error);
+                        },
+                    });
+                } else {
+                    console.error("Aucune correspondance trouvée pour la ville:", location);
+                }
+            })
+            .catch(error => {
+                console.error("Erreur lors du géocodage de la ville:", error);
+            });
+    } else if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             const latitude = position.coords.latitude
             const longitude = position.coords.longitude
@@ -27,8 +64,7 @@ function getPosition() {
         }, function (error) {
             console.error("Erreur lors de l'obtention de la position:", error.message)
         })
-    }
-    else {
+    } else {
         alert("Allow geolocation")
     }
 }
@@ -180,4 +216,13 @@ function showWeather() {
     }
     getApi()
 }
-getPosition()
+
+// Détecte la fin de l'édition (blur)
+document.getElementById('location').addEventListener('blur', function () {
+    const location = this.innerText.trim(); // Récupère le contenu mis à jour
+    if (location) {
+        getPosition(location);
+    } else {
+        console.warn("Le champ est vide. Veuillez entrer une ville valide.");
+    }
+});
