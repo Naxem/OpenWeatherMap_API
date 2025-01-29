@@ -78,7 +78,5 @@ function is_day(hour) {
     const heureNumerique = parseInt(hour)
     if(heureNumerique >= 18) {
         return true
-    } else {
-        return false
     }
 }

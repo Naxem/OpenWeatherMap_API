@@ -26,12 +26,12 @@
             <h1>Météo actuelle :</h1>
             <div class="weather-info-main">
                 <p class="location">Erreur de géolocalisation</p>
-                <img id="img-meteo" src="./ressources/eclaircie.png" alt="image">
+                <img id="img-meteo" src="./ressources/eclaircie.png" alt="Icon météo">
                 <p id="description">Erreur</p>
             </div>
             <div class="details-container">
                 <div class="temp toggle-details">
-                    <p id="toggle-button" onclick="aff_details()">Plus de détails</p>
+                    <p id="toggle-button" onclick="aff_details()" onkeydown="handleKeyPress(event)" tabindex="0">Plus de détails</p>
                     <img src="./ressources/icon/arrow_drop_down_20dp_FILL0_wght400_GRAD0_opsz20.png" alt="icon flèche vers le bas" width="30px" height="30px">
                 </div>
                 <div id="details" class="hidden">
@@ -75,5 +75,12 @@
     <script src="./JS/meteo_icon.js"></script>
     <script src="./JS/main.js"></script>
     <script src="./JS/details.js"></script>
+    <script>
+        function handleKeyPress(event) {
+            if (event.key === "Enter" || event.key === " ") { 
+                aff_details();
+            }
+        }
+    </script>
 </body>
 </html>
