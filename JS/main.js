@@ -143,7 +143,7 @@ function showWeather() {
                 } else {
                     todayHourlyForecast.forEach(hourData => {
                         const hour = new Date(hourData.dt * 1000).toLocaleTimeString('fr-FR', { hour: 'numeric', minute: 'numeric' })
-                        const temperature = hourData.main.temp
+                        const temperature = Math.round(hourData.main.temp)
                         const description = hourData.weather[0].description
                         const hourlyItem = document.createElement('div')
 
@@ -164,7 +164,7 @@ function showWeather() {
 
                 tomorrowHourlyForecast.forEach(hourData => {
                     const hour = new Date(hourData.dt * 1000).toLocaleTimeString('fr-FR', { hour: 'numeric', minute: 'numeric' })
-                    const temperature = hourData.main.temp
+                    const temperature = Math.round(hourData.main.temp)
                     const description = hourData.weather[0].description
                     const hourlyItem = document.createElement('div')
 
