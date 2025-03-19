@@ -42,26 +42,24 @@ function showWeather() {
 
     function getApi() {
         $.ajax({
-            url: 'JS/proxy.php', //URL de la requête AJAX
+            url: 'JS/proxy.php',
             type: 'GET',
             data: { action: '1' },
             success: function (response) {
                 //Affichage des informations météorologiques actuelles
                 const data = JSON.parse(response)
-                const temperatureCelsius = data.main.temp
-                const temperatureKelvinMax = data.main.temp_max
-                const temperatureKelvinMin = data.main.temp_min
+                const temperature = Math.round(data.main.temp)
+                const temperatureKelvinMax = Math.round(data.main.temp_max)
+                const temperatureKelvinMin = Math.round(data.main.temp_min)
                 const location = data.name
-                const temperature = temperatureCelsius
                 const weather = data.weather[0].main
                 const description = data.weather[0].description
-                const locationInDocument = document.querySelectorAll('.location')
                 const humidite = data.main.humidity
                 const pressure = data.main.pressure
                 const wind = data.wind.speed
                 const windDeg = data.wind.deg
 
-                locationInDocument.forEach(element => {element.innerText = `Lieu: ${location}`})
+                document.getElementById('location').innerText = `Lieu: ${location}`
                 document.getElementById('temperature').innerText = `${temperature} °C`
                 document.getElementById('description').innerText = `Description: ${description}`
                 document.getElementById("temp-min").innerText = `${temperatureKelvinMin} °C`
@@ -79,11 +77,11 @@ function showWeather() {
                     data.alerts.forEach(alert => {
                         const alertItem = document.createElement('div')
 
-                        alertItem.innerHTML = `<strong>${alert.event}:</strong> ${alert.description}`
+                        alertItem.innerHTML = `${alert.event}: ${alert.description}`
                         alertsContainer.appendChild(alertItem)
                     })
                 } else {
-                    alertsContainer.innerHTML = '<strong>Pas d\'alertes météorologiques actuellement</strong>'
+                    alertsContainer.innerHTML = 'Pas d\'alertes météorologiques actuellement'
                 }
             }, error: function (error) {
                 console.error('Erreur lors de la requête AJAX:', error);
@@ -103,8 +101,8 @@ function showWeather() {
 
                 dailyForecast.forEach(day => {
                     const date = new Date(day.dt * 1000).toLocaleDateString('fr-FR', { weekday: 'long' })
-                    const temperatureMax = day.temp.max
-                    const temperatureMin = day.temp.min
+                    const temperatureMax = Math.round(day.temp.max)
+                    const temperatureMin = Math.round(day.temp.min)
                     const description = day.weather[0].description
                     const forecastItem = document.createElement('div')
 
@@ -145,7 +143,7 @@ function showWeather() {
                 } else {
                     todayHourlyForecast.forEach(hourData => {
                         const hour = new Date(hourData.dt * 1000).toLocaleTimeString('fr-FR', { hour: 'numeric', minute: 'numeric' })
-                        const temperature = hourData.main.temp
+                        const temperature = Math.round(hourData.main.temp)
                         const description = hourData.weather[0].description
                         const hourlyItem = document.createElement('div')
 
@@ -166,7 +164,7 @@ function showWeather() {
 
                 tomorrowHourlyForecast.forEach(hourData => {
                     const hour = new Date(hourData.dt * 1000).toLocaleTimeString('fr-FR', { hour: 'numeric', minute: 'numeric' })
-                    const temperature = hourData.main.temp
+                    const temperature = Math.round(hourData.main.temp)
                     const description = hourData.weather[0].description
                     const hourlyItem = document.createElement('div')
 
