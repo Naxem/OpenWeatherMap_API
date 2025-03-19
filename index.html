@@ -3,74 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="météo, meteo, naxem, météo by naxem, météo de naxem, weather, weather by naxem"/>
-    <meta name="description" content="Bienvenue sur le site de météo de Naxem">
-    <meta name="author" content="Telle Maxens">
-    <!-- CSS -->
-    <link rel="stylesheet" href="./CSS/font.css">
-    <link rel="stylesheet" href="./CSS/main.css">
-    <link rel="stylesheet" href="./CSS/mediaQ.css">
+    <meta name="keywords" content="météo, meteo, weather"/>
+    <meta name="description" content="Bienvenue sur le site de météo">
+    <!-- Autre-->
+     <link rel="stylesheet" href="./CSS/font.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <!-- Autre-->
     <link rel="icon" type="image/png" href="./incon-meteo.png">
-    <title>weather by Naxem</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Météo</title>
 </head>
-<body>
-    <header>
-        <div id="alertsContainer"><strong>Erreur de géolocalisation</strong></div>
-    </header>
+<body class="bg-gray-100 text-gray-900">
+    <main class="max-w-4xl h-screen mx-auto p-2"> 
+        <header class="bg-blue-500 p-3 rounded-lg shadow-md text-center text-white">
+            <div id="alertsContainer" class="text-xl font-semibold">Erreur de géolocalisation</div>
+        </header>
 
-    <main class="section-main">
-        <div id="weather-info">
-            <h1>Météo actuelle :</h1>
-            <div class="weather-info-main">
-                <p class="location">Erreur de géolocalisation</p>
-                <img id="img-meteo" src="./ressources/eclaircie.png" alt="Icon météo">
-                <p id="description">Erreur</p>
+        <!-- Météo Actuelle -->
+        <section id="weather-info" class="bg-white p-6 rounded-lg mt-5 shadow-lg">
+            <h1 class="text-2xl font-bold text-center mb-4">Météo actuelle :</h1>
+            <div class="flex flex-col items-center">
+                <p class="text-lg">Erreur de géolocalisation</p>
+                <img id="img-meteo" src="./ressources/eclaircie.png" alt="Icon météo" class="w-20 h-20 my-3">
+                <p id="description" class="text-gray-600">Erreur</p>
             </div>
-            <div class="details-container">
-                <div class="temp toggle-details">
-                    <p id="toggle-button" onclick="aff_details()" onkeydown="handleKeyPress(event)" tabindex="0">Plus de détails</p>
-                    <img src="./ressources/icon/arrow_drop_down_20dp_FILL0_wght400_GRAD0_opsz20.png" alt="icon flèche vers le bas" width="30px" height="30px">
-                </div>
-                <div id="details" class="hidden">
-                    <div class="temp"><p>Température: <p id="temperature">0 °C</p></p></div>
-                    <div class="temp"><p>Température min: <p id="temp-min">0 °C</p></p></div>
-                    <div class="temp"><p>Température max: <p id="temp-max">0 °C</p></p></div>
-                    <div class="temp"><p>Humidité: <p id="humidite">00 %</p></p></div>
-                    <div class="temp"><p>Préssion: <p id="pression">0000 mb</p></p></div>
-                    <div class="temp"><p>Vitesse du vent: <p id="wind">0.0 km/h</p></p></div>
-                    <p>Sens du vent: <span class="material-symbols-outlined" id="wind-deg">trending_flat</span></p>
+            <div class="mt-4">
+                <button id="toggle-button" onclick="aff_details()" class="bg-blue-500 hover:bg-blue-500 px-4 py-2 rounded-lg w-full text-center">Plus de détails</button>
+                <div id="details" class="hidden mt-4 grid grid-cols-2 gap-4 text-gray-700">
+                    <p>Température: <span id="temperature">0 °C</span></p>
+                    <p>Température min: <span id="temp-min">0 °C</span></p>
+                    <p>Température max: <span id="temp-max">0 °C</span></p>
+                    <p>Humidité: <span id="humidite">00 %</span></p>
+                    <p>Pression: <span id="pression">0000 mb</span></p>
+                    <p>Vent: <span id="wind">0.0 km/h</span></p>
+                    <p>Direction: <span id="wind-deg">→</span></p>
                 </div>
             </div>
-        </div>
-    </main>
+        </section>
 
-    <section class="prevision-heure">
-        <div class="div-presivion">
-            <div id="todayHourlyContainer">
-                <h2>Prévision dans l'heure :</h2>
+        <!-- Prévisions du jours -->
+        <section class="mt-6">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-3">Prévision dans l'heure :</h2>
+                <div id="todayHourlyContainer"></div>
             </div>
-            <div id="tomorrowHourlyContainer">
-                <h2>Prévision de demain :</h2>
+            <div class="bg-white p-6 rounded-lg shadow-lg mt-4">
+                <h2 class="text-xl font-semibold mb-3">Prévision de demain :</h2>
+                <div id="tomorrowHourlyContainer"></div>
             </div>
-        </div>
-    </section>
-
-    <section class="section-right">
-        <div class="prevision">
-            <h2>Prevision :</h2>
+        </section>
+    
+        <!-- Prévision de la semaine -->
+        <section class="mt-6 bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-xl font-semibold mb-3">Prevision :</h2>                
             <div id="forecastContainer"></div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="div-footer">
-            <p><a href="./mentionLegal.html" target="blank" title="Mention légal">mention légal</a></p>
-            <p><span>© Copyright Telle Maxens 2023</span></p>
-        </div>
-    </footer>
+        </section>
+    
+        <footer class="text-center text-gray-600 mt-6 py-4 border-t border-gray-300">
+            <div class="div-footer">
+                <a href="mailto: f8zihak10@mozmail.com" class="hover:text-blue-500">Me contacter</a>
+            </div>
+        </footer>
+    </main>
 
     <script src="./JS/meteo_icon.js"></script>
     <script src="./JS/main.js"></script>
